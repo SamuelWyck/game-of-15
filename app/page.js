@@ -3,6 +3,11 @@ import Link from "next/link";
 
 
 
+export const metadata = {
+	title: "Game of 15 | Home"
+};
+
+
 export default function Home() {
 	return (
 		<main className={styles["homepage-main"]}>
