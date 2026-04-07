@@ -1,0 +1,62 @@
+.homepage-main {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow-y: auto;
+	padding: 1rem;
+}
+
+.game-card-link {
+	width: min(600px, 100%);
+	text-decoration: none;
+}
+
+.game-card {
+	width: min(600px, 100%);
+	position: relative;
+	border-radius: 20px;
+	overflow: hidden;
+	border: 4px solid var(--dark-color);
+	box-shadow: 0px 10px 10px 0px black;
+
+	transition: all .2s linear;
+}
+
+.game-card .img-wrapper {
+	width: 100%;
+	display: flex;
+}
+
+.img-wrapper img {
+	width: 100%;
+}
+
+.game-card-title-wrapper {
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.game-card-title {
+	color: var(--dark-color);
+	font-size: clamp(1rem, .8rem + 2vw, 2rem);
+	background-color: var(--light-color);
+	padding: 1rem;
+	border-radius: 10px;
+
+	transition: transform .2s linear;
+}
+
+.game-card:hover {
+	box-shadow: none;
+}
+
+.game-card:hover .game-card-title {
+	transform: scale(1.1);
+}
