@@ -1,6 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Sancreek&display=swap');
+
+
+
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+}
+
+html {
 	font-size: 16px;
+	font-family: "Sancreek", "Roboto", sans-serif;
+
+	--dark-color: hsl(0, 0%, 5%);
+	--light-color: hsl(53, 27%, 94%);
+}
+
+body {
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: min-content 1fr;
+	background-color: var(--light-color);
 }
