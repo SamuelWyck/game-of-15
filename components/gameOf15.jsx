@@ -3,6 +3,7 @@ import { useRef, useEffect } from "react";
 import styles from "../styles/gameOf15.module.css";
 import Board from "../utils/board.js";
 import Popup from "./popup.jsx";
+import storage from "../utils/storageManager.js";
 
 
 
@@ -20,7 +21,15 @@ function GameOf15() {
 
 
     useEffect(function() {
+        storage.initStorage();
+        const savedBoard = storage.getGame();
+        if (savedBoard !== null) {
+            game.current.setBoard(savedBoard);
+        }
         setTiles();
+        if (game.current.isSolved()) {
+            gameOver.current = true;
+        }
 
         const mainEle = document.querySelector("main");
 
@@ -65,6 +74,7 @@ function GameOf15() {
         game.current.reset();
         setTiles();
         gameOver.current = false;
+        storage.saveGame(game.current.getBoard());
     };
 
 
@@ -172,6 +182,7 @@ function GameOf15() {
         let gameWon = false;
         if (moveTile(direction)) {
             gameWon = game.current.isSolved();
+            storage.saveGame(game.current.getBoard());
         }
 
         if (gameWon) {
