@@ -25,6 +25,16 @@ html {
 	hue-rotate(327deg) 
 	brightness(110%) 
 	contrast(91%);
+
+	--dark-color-filter:
+	brightness(0) 
+	saturate(100%) 
+	invert(0%) 
+	sepia(20%) 
+	saturate(5095%) 
+	hue-rotate(72deg) 
+	brightness(84%) 
+	contrast(90%);
 }
 
 body {
