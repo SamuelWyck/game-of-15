@@ -131,7 +131,7 @@ class Board {
             this.#moveLeft, this.#moveRight
         ];
 
-        for (let numTileMoves = this.#randInt(75, 150); numTileMoves > 0; numTileMoves -= 1) {
+        for (let numTileMoves = this.#randInt(75, 200); numTileMoves > 0; numTileMoves -= 1) {
             const randIdx = this.#randInt(0, directions.length - 1);
             this.moveTile(directions[randIdx]);
         }
