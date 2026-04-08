@@ -113,6 +113,29 @@
     transform: rotate(90deg);
 }
 
+.reset-btn {
+    cursor: pointer;
+    position: absolute;
+    bottom: 103%;
+    left: 5%;
+
+    display: flex;
+    width: clamp(2px, 15px + 2vw, 30px);
+
+    background: none;
+    border: none;
+
+    transition: transform .1s linear;
+}
+
+.reset-btn img {
+    width: 100%;
+}
+
+.reset-btn:hover {
+    transform: scale(1.1) rotate(60deg);
+}
+
 
 .board-tile.tile1::before {
     content: "1";
