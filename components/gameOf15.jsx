@@ -47,7 +47,7 @@ function GameOf15() {
 
 
     function handleReset() {
-        popupRef.current.showMessage("Game reset");
+        popupRef.current.showMessage("Game reset", true);
         game.current.reset();
         setTiles();
         gameOver.current = false;
