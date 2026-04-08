@@ -73,13 +73,13 @@ class Board {
     
     moveTile(direction) {
         if (!(direction in this.#tileSwapDeltas)) {
-            return;
+            return null;
         }
         
         const [rowDelta, colDelta] = this.#tileSwapDeltas[direction];
         const tileRow = this.#emptyRow + rowDelta;
         const tileCol = this.#emptyCol + colDelta;
-        this.#swapTile(tileRow, tileCol);
+        return this.#swapTile(tileRow, tileCol);
     };
 
 
@@ -94,14 +94,19 @@ class Board {
         const rowValid = 0 <= tileRow && tileRow < this.#board.length;
         const colValid = 0 <= tileCol && tileCol < this.#board[0].length;
         if (!rowValid || !colValid) {
-            return;
+            return null;
         }
 
         const tileNum = this.#board[tileRow][tileCol];
         this.#board[tileRow][tileCol] = this.#emptySymbol;
         this.#board[this.#emptyRow][this.#emptyCol] = tileNum;
+
+        const newRow = this.#emptyRow;
+        const newCol = this.#emptyCol;
         this.#emptyRow = tileRow;
         this.#emptyCol = tileCol;
+
+        return {newRow, newCol, oldRow: tileRow, oldCol: tileCol};
     };
 
 
@@ -142,4 +147,4 @@ class Board {
 
 
 
-export default new Board();
+export default Board;
