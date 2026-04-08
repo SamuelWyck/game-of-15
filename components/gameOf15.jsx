@@ -16,9 +16,11 @@ function GameOf15() {
         setTiles();
 
         document.addEventListener("keyup", handleKeypress);
+        document.addEventListener("click", handleBtnPress);
 
         return function() {
             document.removeEventListener("keyup", handleKeypress);
+            document.removeEventListener("click", handleBtnPress);
         };
     }, []);
 
@@ -50,6 +52,20 @@ function GameOf15() {
         } else if (key === "a") {
             moveTile(game.current.moveLeft);
         } else if (key === "d") {
+            moveTile(game.current.moveRight);
+        }
+    };
+
+
+    function handleBtnPress(event) {
+        const target = event.target;
+        if (target.matches(`.${styles["move-up"]}`)) {
+            moveTile(game.current.moveUp);
+        } else if (target.matches(`.${styles["move-down"]}`)) {
+            moveTile(game.current.moveDown);
+        } else if (target.matches(`.${styles["move-left"]}`)) {
+            moveTile(game.current.moveLeft);
+        } else if (target.matches(`.${styles["move-right"]}`)) {
             moveTile(game.current.moveRight);
         }
     };
