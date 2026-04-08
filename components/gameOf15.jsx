@@ -2,6 +2,7 @@
 import { useRef, useEffect } from "react";
 import styles from "../styles/gameOf15.module.css";
 import Board from "../utils/board.js";
+import Popup from "./popup.jsx";
 
 
 
@@ -10,17 +11,18 @@ function GameOf15() {
     const tiles = useRef(createTiles());
     const game = useRef(new Board());
     const board = useRef(null);
+    const popupRef = useRef(null);
 
 
     useEffect(function() {
         setTiles();
 
         document.addEventListener("keyup", handleKeypress);
-        document.addEventListener("click", handleBtnPress);
+        document.addEventListener("click", handleMoveBtnPress);
 
         return function() {
             document.removeEventListener("keyup", handleKeypress);
-            document.removeEventListener("click", handleBtnPress);
+            document.removeEventListener("click", handleMoveBtnPress);
         };
     }, []);
 
@@ -45,28 +47,53 @@ function GameOf15() {
     
     function handleKeypress(event) {
         const key = event.key;
+
+        let direction = null;
         if (key === "w") {
-            moveTile(game.current.moveUp);
+            direction = game.current.moveUp;
         } else if (key === "s") {
-            moveTile(game.current.moveDown);
+            direction = game.current.moveDown;
         } else if (key === "a") {
-            moveTile(game.current.moveLeft);
+            direction = game.current.moveLeft;
         } else if (key === "d") {
-            moveTile(game.current.moveRight);
+            direction = game.current.moveRight;
+        }
+
+        if (direction !== null) {
+            handleMove(direction);
         }
     };
 
 
-    function handleBtnPress(event) {
+    function handleMoveBtnPress(event) {
         const target = event.target;
+        if (!target.matches(`.${styles["move-button"]}`)) {
+            return;
+        }
+
+        let direction = null;
         if (target.matches(`.${styles["move-up"]}`)) {
-            moveTile(game.current.moveUp);
+            direction = game.current.moveUp;
         } else if (target.matches(`.${styles["move-down"]}`)) {
-            moveTile(game.current.moveDown);
+            direction = game.current.moveDown;
         } else if (target.matches(`.${styles["move-left"]}`)) {
-            moveTile(game.current.moveLeft);
+            direction = game.current.moveLeft;
         } else if (target.matches(`.${styles["move-right"]}`)) {
-            moveTile(game.current.moveRight);
+            direction = game.current.moveRight;
+        }
+
+        handleMove(direction);
+    };
+
+
+    function handleMove(direction) {
+        let gameWon = false;
+        if (moveTile(direction)) {
+            gameWon = game.current.isSolved();
+        }
+
+        if (gameWon) {
+            popupRef.current.showMessage("Good job! You won!");
         }
     };
 
@@ -74,7 +101,7 @@ function GameOf15() {
     function moveTile(direction) {
         const tileMoveInfo = game.current.moveTile(direction);
         if (tileMoveInfo === null) {
-            return;
+            return false ;
         }
 
         const tileCls = styles[`board-tile`];
@@ -84,6 +111,7 @@ function GameOf15() {
         
         tile.dataset.row = tileMoveInfo.newRow;
         tile.dataset.col = tileMoveInfo.newCol;
+        return true;
     };
 
 
@@ -139,6 +167,7 @@ function GameOf15() {
 
     return (
     <section className={styles["game-section"]}>
+        <Popup ref={popupRef} top={-50} centered={true} />
         <button className={`${styles["move-button"]} ${styles["move-up"]}`}>
             <img src="/arrow.svg" alt="arrow" />
         </button>
