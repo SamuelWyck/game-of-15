@@ -17,7 +17,7 @@ function GameOf15() {
 
     const touchStart = useRef({});
     const touchEnd = useRef({});
-    const maxNeededTouches = 5;
+    const maxNeededTouches = 4;
 
 
     useEffect(function() {
