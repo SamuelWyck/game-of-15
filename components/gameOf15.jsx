@@ -123,12 +123,24 @@ function GameOf15() {
 
     return (
     <section className={styles["game-section"]}>
-        <div className={styles["game-board"]} ref={board}>
-            <div className={styles["tiles-wrapper"]}>
-                {tiles.current}
+        <button className={`${styles["move-button"]} ${styles["move-up"]}`}>
+            <img src="/arrow.svg" alt="arrow" />
+        </button>
+        <div className={styles["board-wrapper"]}>
+            <button className={`${styles["move-button"]} ${styles["move-left"]}`}>
+                <img src="/arrow.svg" alt="arrow" />
+            </button>
+            <div className={styles["game-board"]} ref={board}>
+                <div className={styles["tiles-wrapper"]}>{tiles.current}</div>
+                {cells.current}
             </div>
-            {cells.current}
+            <button className={`${styles["move-button"]} ${styles["move-right"]}`}>
+                <img src="/arrow.svg" alt="arrow" />
+            </button>
         </div>
+        <button className={`${styles["move-button"]} ${styles["move-down"]}`}>
+            <img src="/arrow.svg" alt="arrow" />
+        </button>
     </section>
     );
 };
