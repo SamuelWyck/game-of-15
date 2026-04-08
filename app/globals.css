@@ -13,6 +13,7 @@ html {
 	font-family: "Sancreek", "Roboto", sans-serif;
 
 	--dark-color: hsl(0, 0%, 5%);
+	--medium-color: hsl(0, 0%, 35%);
 	--light-color: hsl(53, 27%, 94%);
 }
 
