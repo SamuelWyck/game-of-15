@@ -15,6 +15,16 @@ html {
 	--dark-color: hsl(0, 0%, 5%);
 	--medium-color: hsl(0, 0%, 35%);
 	--light-color: hsl(53, 27%, 94%);
+
+	--light-color-filter:
+	brightness(0) 
+	saturate(100%) 
+	invert(92%) 
+	sepia(2%) 
+	saturate(1345%) 
+	hue-rotate(327deg) 
+	brightness(110%) 
+	contrast(91%);
 }
 
 body {
