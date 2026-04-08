@@ -16,6 +16,7 @@ class Board {
     #moveRight = 3;
 
     #tileSwapDeltas = {};
+    
 
     constructor() {
         for (let i = 0; i < this.#boardHeight; i += 1) {
@@ -34,6 +35,20 @@ class Board {
 
     getBoard() {
         return this.#board;
+    };
+
+
+    setBoard(board) {
+        for (let row = 0; row < board.length; row += 1) {
+            for (let col = 0; col < board[0].length; col += 1) {
+                const tileNum = board[row][col];
+                this.#board[row][col] = tileNum;
+                if (tileNum === this.#emptySymbol) {
+                    this.#emptyRow = row;
+                    this.#emptyCol = col;
+                }
+            }
+        }
     };
 
     
