@@ -12,6 +12,7 @@ function GameOf15() {
     const game = useRef(new Board());
     const board = useRef(null);
     const popupRef = useRef(null);
+    const gameOver = useRef(false);
 
 
     useEffect(function() {
@@ -46,6 +47,10 @@ function GameOf15() {
 
     
     function handleKeypress(event) {
+        if (gameOver.current) {
+            return;
+        }
+
         const key = event.key;
 
         let direction = null;
@@ -67,7 +72,7 @@ function GameOf15() {
 
     function handleMoveBtnPress(event) {
         const target = event.target;
-        if (!target.matches(`.${styles["move-button"]}`)) {
+        if (!target.matches(`.${styles["move-button"]}`) || gameOver.current) {
             return;
         }
 
@@ -94,6 +99,7 @@ function GameOf15() {
 
         if (gameWon) {
             popupRef.current.showMessage("Good job! You won!");
+            gameOver.current = true;
         }
     };
 
