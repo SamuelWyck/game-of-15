@@ -67,6 +67,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    outline: none;
 }
 
 .move-button img {
@@ -76,7 +77,7 @@
     user-select: none;
 }
 
-.move-button:hover, .move-button:active {
+.move-button:hover, .move-button:active, .move-button:focus {
     background-color: var(--medium-color);
 }
 
