@@ -1,3 +1,11 @@
+.game-section {
+    display: flex;
+    flex-direction: column;
+
+    --btn-short-length: 35px;
+    --border-rad: 15px;
+}
+
 .game-board {
     background-color: var(--dark-color);
     display: grid;
@@ -8,8 +16,8 @@
     gap: var(--gap);
     padding: var(--gap);
 
-    --border-rad: 15px;
-    border-radius: var(--border-rad);
+    /* border-radius: var(--border-rad); */
+    box-shadow: 0px 0px 30px 4px var(--dark-color);
 
     --cell-width: clamp(50px, 45px + 4vw, 100px);
     --cell-height: clamp(50px, 45px + 4vw, 100px);
@@ -48,62 +56,103 @@
     transition: all .07s linear;
 }
 
+.board-wrapper {
+    display: flex;
+}
+
+.move-button {
+    border: none;
+    background-color: var(--dark-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.move-button img {
+    width: 40px;
+    filter: var(--light-color-filter);
+    pointer-events: none;
+    user-select: none;
+}
+
+.move-button:hover, .move-button:active {
+    background-color: var(--medium-color);
+}
+
+.move-left, .move-right {
+    width: var(--btn-short-length);
+}
+
+.move-up, .move-down {
+    height: var(--btn-short-length);
+}
+
+.move-up {
+    border-top-left-radius: var(--border-rad);
+    border-top-right-radius: var(--border-rad);
+}
+
+.move-down {
+    border-bottom-left-radius: var(--border-rad);
+    border-bottom-right-radius: var(--border-rad);
+}
+
+.move-down img {
+    transform: rotate(180deg);
+}
+
+.move-left img {
+    transform: rotate(-90deg);
+}
+
+.move-right img {
+    transform: rotate(90deg);
+}
+
+
 .board-tile.tile1::before {
     content: "1";
 }
-
 .board-tile.tile2::before {
     content: "2";
 }
-
 .board-tile.tile3::before {
     content: "3";
 }
-
 .board-tile.tile4::before {
     content: "4";
 }
-
 .board-tile.tile5::before {
     content: "5";
 }
-
 .board-tile.tile6::before {
     content: "6";
 }
-
 .board-tile.tile7::before {
     content: "7";
 }
-
 .board-tile.tile8::before {
     content: "8";
 }
-
 .board-tile.tile9::before {
     content: "9";
 }
-
 .board-tile.tile10::before {
     content: "10";
 }
-
 .board-tile.tile11::before {
     content: "11";
 }
-
 .board-tile.tile12::before {
     content: "12";
 }
-
 .board-tile.tile13::before {
     content: "13";
 }
-
 .board-tile.tile14::before {
     content: "14";
 }
-
 .board-tile.tile15::before {
     content: "15";
 }
@@ -111,31 +160,37 @@
 .board-tile[data-row="0"] {
     top: calc(var(--gap));
 }
-
 .board-tile[data-row="1"] {
     top: calc((var(--gap) * 2) + var(--cell-height));
 }
-
 .board-tile[data-row="2"] {
     top: calc((var(--gap) * 3) + (var(--cell-height) * 2));
 }
-
 .board-tile[data-row="3"] {
     top: calc((var(--gap) * 4) + (var(--cell-height) * 3));
 }
-
 .board-tile[data-col="0"] {
     left: calc(var(--gap));
 }
-
 .board-tile[data-col="1"] {
     left: calc((var(--gap) * 2) + var(--cell-width));
 }
-
 .board-tile[data-col="2"] {
     left: calc((var(--gap) * 3) + (var(--cell-width) * 2));
 }
-
 .board-tile[data-col="3"] {
     left: calc((var(--gap) * 4) + (var(--cell-width) * 3));
+}
+
+
+
+@media only screen and (width <= 426px) {
+    .move-button {
+        display: none;
+    }
+
+    .game-board {
+        border-radius: var(--border-rad);
+        box-shadow: none;
+    }
 }
