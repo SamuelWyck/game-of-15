@@ -45,6 +45,14 @@ function GameOf15() {
         }
     };
 
+
+    function handleReset() {
+        popupRef.current.showMessage("Game reset");
+        game.current.reset();
+        setTiles();
+        gameOver.current = false;
+    };
+
     
     function handleKeypress(event) {
         if (gameOver.current) {
@@ -174,6 +182,9 @@ function GameOf15() {
     return (
     <section className={styles["game-section"]}>
         <Popup ref={popupRef} top={-50} centered={true} />
+        <button className={styles["reset-btn"]} onClick={handleReset}>
+            <img src="/reset.svg" alt="reset" />
+        </button>
         <button className={`${styles["move-button"]} ${styles["move-up"]}`}>
             <img src="/arrow.svg" alt="arrow" />
         </button>
