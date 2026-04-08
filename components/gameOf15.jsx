@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useEffect } from "react";
-import styles from "../styles/gameOF15.module.css";
+import styles from "../styles/gameOf15.module.css";
 import Board from "../utils/board.js";
 
 
