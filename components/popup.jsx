@@ -9,7 +9,8 @@ class Popup extends Component {
         super(props);
 
         this.state = {
-            message: ""
+            message: "",
+            fadeout: false
         };
 
         this.clearMessage = this.clearMessage.bind(this);
@@ -24,9 +25,13 @@ class Popup extends Component {
     };
 
 
-    showMessage(message) {
+    showMessage(message, fadeout=false) {
+        if (this.state.fadeout && this.state.message != "") {
+            return;
+        }
+
         this.setState(function(state) {
-            return {...state, message: message};
+            return {...state, message: message, fadeout: fadeout};
         });
     };
 
@@ -41,15 +46,24 @@ class Popup extends Component {
             style.left = `${this.props.left}px`;
         }
 
+        if (this.state.fadeout) {
+            setTimeout(this.clearMessage, 1500);
+        }
+
+        const centeredCls = this.props.centered ? styles["centered"] : "";
+        const fadeoutCls = this.state.fadeout ? styles["fadeout"] : "";
+
         return (
             <div 
-                className={`${styles["popup"]} ${this.props.centered ? styles["centered"] : ""}`} 
+                className={`${styles["popup"]} ${centeredCls} ${fadeoutCls}`} 
                 style={style}
             >
                 <p className={styles["popup-msg"]}>{this.state.message}</p>
+                {!this.state.fadeout &&
                 <button className={styles["popup-btn"]} onClick={this.clearMessage}>
                     <img src="/close.svg" alt="close" />
                 </button>
+                }
             </div>
         );
     };
