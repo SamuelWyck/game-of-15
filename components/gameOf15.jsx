@@ -14,14 +14,28 @@ function GameOf15() {
     const popupRef = useRef(null);
     const gameOver = useRef(false);
 
+    const touchStart = useRef({});
+    const touchEnd = useRef({});
+    const maxNeededTouches = 5;
+
 
     useEffect(function() {
         setTiles();
+
+        const mainEle = document.querySelector("main");
+
+        mainEle.addEventListener("touchstart", handleTouchStart);
+        mainEle.addEventListener("touchmove", handleTouchMove);
+        mainEle.addEventListener("touchend", handleTouchEnd);
 
         document.addEventListener("keyup", handleKeypress);
         document.addEventListener("click", handleMoveBtnPress);
 
         return function() {
+            mainEle.removeEventListener("touchstart", handleTouchStart);
+            mainEle.removeEventListener("touchmove", handleTouchMove);
+            mainEle.removeEventListener("touchend", handleTouchEnd);
+
             document.removeEventListener("keyup", handleKeypress);
             document.removeEventListener("click", handleMoveBtnPress);
         };
@@ -51,6 +65,61 @@ function GameOf15() {
         game.current.reset();
         setTiles();
         gameOver.current = false;
+    };
+
+
+    function handleTouchStart(event) {
+        if (gameOver.current) {
+            return;
+        }
+
+        const touch = event.touches[0];
+        touchStart.current = {x: touch.clientX, y: touch.clientY};
+    };
+
+
+    function handleTouchMove(event) {
+        if (gameOver.current || touchStart.current.x === undefined) {
+            return;
+        }
+
+        const touch = event.targetTouches[0];
+        const lastTouchNum = touchEnd.current.num ? touchEnd.current.num : 0;
+
+        if (lastTouchNum === maxNeededTouches) {
+            const direction = getSwipeDirection();
+            handleMove(direction);
+            touchStart.current = {};
+            touchEnd.current = {};
+        } else {
+            touchEnd.current = {x: touch.clientX, y: touch.clientY, num: lastTouchNum + 1};
+        }
+    };
+
+
+    function handleTouchEnd() {
+        const numTouches = touchEnd.current.num ? touchEnd.current.num : 0;
+        if (gameOver.current || numTouches < maxNeededTouches) {
+            return;
+        }
+
+        const direction = getSwipeDirection();
+        handleMove(direction);
+
+        touchStart.current = {};
+        touchEnd.current = {};
+    };
+
+
+    function getSwipeDirection() {
+        const xDiff = touchEnd.current.x - touchStart.current.x;
+        const yDiff = touchEnd.current.y - touchStart.current.y;
+
+        if (Math.abs(xDiff) >= Math.abs(yDiff)) {
+            return (xDiff > 0) ? game.current.moveRight : game.current.moveLeft;
+        } else {
+            return (yDiff > 0) ? game.current.moveDown : game.current.moveUp;
+        }
     };
 
     
